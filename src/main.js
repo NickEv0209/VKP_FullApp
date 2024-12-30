@@ -51,6 +51,10 @@ function createWindows() {
 
 app.on("ready", createWindows);
 
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall();
+});
+
 autoUpdater.on("error", (error) => {
   console.error("Ошибка при обновлении:", error);
 });
