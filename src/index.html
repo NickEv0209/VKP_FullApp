@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="block">
+                <input type="text" placeholder="Поиск" id="search" @input="enterSearch" @click="input">
+                <i class="bi bi-search search_icon"></i>
+                <i class="bi bi-arrow-repeat update_icon" @click="update" v-if="!isLoading"></i>
+
+                <i class="bi bi-basket" @click="toggleSearchMode" v-if="searchMode === 'products'"></i>
+                <i class="bi bi-person-fill" @click="toggleSearchMode" v-if="searchMode === 'users'"></i>
+            </div>
+            
+            <div class="modal" v-if="searchMode === 'users'">
+                <p>Включён поик по пользователям</p>
+            </div>
+            <div class="modal" v-if="searchMode === 'products'">
+                <p>Включён поик по товарам</p>
+            </div>
+        </header>
+
+        <div class="loading" v-if="isLoading"></div>
+        <main v-if="!isLoading">
+            <div class="users">
+                <user v-for="user in users" :key="user.user_id" :user="user" @active="active"></user>
+            </div>
+    
+            <div class="products" >
+                <div v-if="isNotProducts">
+                    <p>❌ Пользователь не корректно отправил ссылку на товар, для уточнения перейдите в <b>сообщения</b> с этим пользователем</p>
+                    <img src="./img/isNoProduct.png" alt="">
+                </div>
+                
+                <product v-for="product in products" :key="products[product]" :product="product" @prod="prod" :class="{'prodActive' : product.isActive}"></product>
+            </div>
+        </main>
+
+        <footer>
+            <p v-if="!isLoading">© CD&M 2023 v1.0</p>
+            <p v-if="isLoading">Загрузка...</p>
+        </footer>
+    </div>
+
+    <script type="module" src="./scripts/index.js"></script>
+</body>
+</html>
