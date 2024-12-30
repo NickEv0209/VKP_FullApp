@@ -239,7 +239,6 @@ async function updateData(settings) {
     console.log('какая-то ошибка')
     cachedUsers = localStorage.getItem('users')
     return JSON.parse(cachedUsers) ?? [];
-    // return [];
   });
   
   const getProducts = (users) => {

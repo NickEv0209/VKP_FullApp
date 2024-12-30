@@ -32,7 +32,7 @@ function createWindows() {
 
   win.loadFile(path.join(__dirname, 'dist', 'index.html'));
 
-//   win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   autoUpdater.checkForUpdatesAndNotify();
 
